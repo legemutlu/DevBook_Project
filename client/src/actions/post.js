@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { setAlert } from './alert';
+import axios from "axios";
+import { setAlert } from "./alert";
 import {
   GET_POSTS,
   GET_POST,
@@ -9,12 +9,12 @@ import {
   ADD_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
-} from './types';
+} from "./types";
 
 // GET POSTS
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/posts');
+    const res = await axios.get("/api/posts");
 
     dispatch({
       type: GET_POSTS,
@@ -72,7 +72,7 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id,
     });
 
-    dispatch(setAlert('Post Removed', 'success'));
+    dispatch(setAlert("Post Removed", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -85,19 +85,19 @@ export const deletePost = (id) => async (dispatch) => {
 export const addPost = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
   try {
-    const res = await axios.post('/api/posts', formData, config);
+    const res = await axios.post("/api/posts", formData, config);
 
     dispatch({
       type: ADD_POST,
       payload: res.data,
     });
 
-    dispatch(setAlert('Post Added', 'success'));
+    dispatch(setAlert("Post Added", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -133,7 +133,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert('Comment Added', 'success'));
+    dispatch(setAlert("Comment Added", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -153,7 +153,7 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
       payload: commentId,
     });
 
-    dispatch(setAlert('Comment Removed', 'success'));
+    dispatch(setAlert("Comment Removed", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,

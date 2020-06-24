@@ -1,19 +1,19 @@
-import React, { Fragment, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { login } from '../../actions/auth';
+import React, { Fragment, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login } from "../../actions/auth";
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isCompany, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   // It is for use rather than formData.name etc...
   const { email, password } = formData;
 
-  // ... => refers all fromData element(unless it use just first data show and others will disappear- it is marging all attr.)
+  // ... => refers all fromData element(unless it uses just first data show and others will disappear- it is marging all attr.)
   const onchange = (e) =>
     setFormData({
       ...formData,
@@ -26,9 +26,13 @@ const Login = ({ login, isAuthenticated }) => {
   };
 
   // Redirect if logged in
-  if (isAuthenticated) {
+  if (isAuthenticated && isCompany) {
+    return <Redirect to="/dashboard-company" />;
+  }
+  if (isAuthenticated && isCompany === false) {
     return <Redirect to="/dashboard" />;
   }
+
   return (
     <Fragment>
       <h1 className="large text-primary">Sign In</h1>
@@ -68,10 +72,12 @@ const Login = ({ login, isAuthenticated }) => {
 Login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
+  isCompany: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  isCompany: state.auth.isCompany,
 });
 
 export default connect(mapStateToProps, { login })(Login);

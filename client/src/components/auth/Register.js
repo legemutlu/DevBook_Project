@@ -11,10 +11,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     email: '',
     password: '',
     password2: '',
+    isCompany: false,
   });
 
   // It is for use rather than formData.name etc...
-  const { name, email, password, password2 } = formData;
+  const { name, email, password, password2, isCompany } = formData;
 
   // ... => refers all fromData element(unless it use just first data show and others will disappear- it is marging all attr.)
   const onchange = (e) =>
@@ -28,66 +29,86 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
-      register({ name, email, password });
+      register({ name, email, password, isCompany });
     }
-
-    console.log(formData);
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
+    if (isCompany) {
+      return <Redirect to='/dashboard-company' />;
+    } else return <Redirect to='/dashboard' />;
   }
   return (
     <Fragment>
-      <h1 className="large text-primary">Sign Up</h1>
-      <p className="lead">
-        <i className="fas fa-user"></i> Create Your Account
+      <h1 className='large text-primary'>Sign Up</h1>
+      <p className='lead'>
+        <i className='fas fa-user'></i> Create Your Account
       </p>
-      <form className="form" onSubmit={(e) => onSubmit(e)}>
-        <div className="form-group">
+      <form className='form' onSubmit={(e) => onSubmit(e)}>
+        <div className='form-group'>
           <input
-            type="text"
-            placeholder="Name"
-            name="name"
+            type='text'
+            placeholder='Name'
+            name='name'
             value={name}
             onChange={(e) => onchange(e)}
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="email"
-            placeholder="Email Address"
-            name="email"
+            type='email'
+            placeholder='Email Address'
+            name='email'
             value={email}
             onChange={(e) => onchange(e)}
           />
+
+          {/* Profile Photo Handling
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
             Gravatar email
-          </small>
+          </small> */}
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Password"
-            name="password"
+            type='password'
+            placeholder='Password'
+            name='password'
             value={password}
             onChange={(e) => onchange(e)}
           />
         </div>
-        <div className="form-group">
+        <div className='form-group'>
           <input
-            type="password"
-            placeholder="Confirm Password"
-            name="password2"
+            type='password'
+            placeholder='Confirm Password'
+            name='password2'
             value={password2}
             onChange={(e) => onchange(e)}
           />
         </div>
-        <input type="submit" className="btn btn-primary" value="Register" />
+        <div className='form-group'>
+          <p>
+            <input
+              type='checkbox'
+              name='isCompany'
+              value={isCompany}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  isCompany: !isCompany,
+                });
+              }}
+            />{' '}
+            Register as a Company
+          </p>
+        </div>
+        <p className='my-1'>
+          <input type='submit' className='btn btn-primary' value='Register' />
+        </p>
       </form>
-      <p className="my-1">
-        Already have an account? <Link to="/login">Sign In</Link>
+      <p className='my-1'>
+        Already have an account? <Link to='/login'>Sign In</Link>
       </p>
     </Fragment>
   );

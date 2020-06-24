@@ -249,6 +249,7 @@ img {
 .form input[type='email'],
 .form input[type='password'],
 .form input[type='date'],
+.form input[type='datetime-local'],
 .form select,
 .form textarea {
   display: block;
@@ -492,6 +493,76 @@ select > option {
   margin-bottom: 0.5rem;
 }
 
+/* Jobs Page */
+.job-form .job-form-header {
+  background: var(--primary-color);
+  padding: 0.5rem;
+}
+
+.job {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.job > div:first-child {
+  text-align: center;
+}
+
+.job img {
+  width: 100px;
+}
+
+.job .apply-count {
+  background: var(--light-color);
+  color: var(--primary-color);
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.job .job-date {
+  color: #aaa;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Events Page */
+.event-form .event-form-header {
+  background: var(--primary-color);
+  padding: 0.5rem;
+}
+
+.event {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.event > div:first-child {
+  text-align: center;
+}
+
+.event img {
+  width: 100px;
+}
+
+.event .participant-count {
+  background: var(--light-color);
+  color: var(--primary-color);
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.event .event-date {
+  color: #aaa;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
   .container {
@@ -580,7 +651,6 @@ select > option {
   }
 }
 
-/* MY CSS */
 .fa,
 .fas {
   margin: 5px;

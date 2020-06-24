@@ -1,12 +1,17 @@
-import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const Landing = ({ isAuthenticated }) => {
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard"></Redirect>;
+const Landing = ({ isAuthenticated, isCompany }) => {
+  // Redirect if logged in
+  if (isAuthenticated && isCompany) {
+    return <Redirect to="/dashboard-company" />;
   }
+  if (isAuthenticated && !isCompany) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <div>
       <section className="landing">
@@ -34,10 +39,12 @@ const Landing = ({ isAuthenticated }) => {
 
 Landing.propTypes = {
   isAuthenticated: PropTypes.bool,
+  isCompany: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  isCompany: state.auth.isCompany,
 });
 
 export default connect(mapStateToProps)(Landing);
