@@ -20,7 +20,6 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
       <Link to='/posts' className='btn'>
         Back To Posts
       </Link>
-      {/* false ---> dont show like unlike comment */}
       <PostItem post={post} showActions={false} />
       <CommentForm postId={post._id} />
       <div className='comments'>

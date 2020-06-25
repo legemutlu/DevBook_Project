@@ -12,9 +12,17 @@ const CreateEvent = ({ createEvent }) => {
     startDate: '',
     endDate: '',
     description: ' ',
+    category: '',
   });
 
-  const { title, location, startDate, endDate, description } = formData;
+  const {
+    title,
+    location,
+    category,
+    startDate,
+    endDate,
+    description,
+  } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,18 +43,18 @@ const CreateEvent = ({ createEvent }) => {
               type='text'
               id='title'
               name='title'
-              placeholder='title'
+              placeholder='Title'
               value={title}
               onChange={(e) => onChange(e)}
               required
             ></input>
           </div>
-          <div className='form-control'>
+          <div className='form-group'>
             <input
               type='text'
               id='location'
               name='location'
-              placeholder='location'
+              placeholder='Location'
               value={location}
               onChange={(e) => onChange(e)}
               required
@@ -54,10 +62,20 @@ const CreateEvent = ({ createEvent }) => {
           </div>
           <div className='form-group'>
             <input
+              type='text'
+              id='category'
+              name='category'
+              placeholder='Category'
+              value={category}
+              onChange={(e) => onChange(e)}
+            ></input>
+          </div>
+          <div className='form-group'>
+            <input
               type='datetime-local'
               name='startDate'
               id='startDate'
-              placeholder='startDate'
+              placeholder='Start Date'
               value={startDate}
               onChange={(e) => onChange(e)}
             ></input>
@@ -67,7 +85,7 @@ const CreateEvent = ({ createEvent }) => {
               type='datetime-local'
               name='endDate'
               id='endDate'
-              placeholder='endDate'
+              placeholder='End Date'
               value={endDate}
               onChange={(e) => onChange(e)}
             ></input>

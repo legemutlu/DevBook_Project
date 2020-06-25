@@ -18,9 +18,17 @@ const UpdateEvent = ({
     startDate: '',
     endDate: '',
     description: ' ',
+    category: '',
   });
 
-  const { title, location, startDate, endDate, description } = formData;
+  const {
+    title,
+    location,
+    category,
+    startDate,
+    endDate,
+    description,
+  } = formData;
 
   useEffect(() => {
     getEvent(match.params.id);
@@ -30,6 +38,7 @@ const UpdateEvent = ({
     setFormData({
       title: loading || !event.title ? ' ' : event.title,
       location: loading || !event.location ? ' ' : event.location,
+      category: loading || !event.category ? ' ' : event.category,
       startDate: loading || !event.startDate ? ' ' : event.startDate,
       endDate: loading || !event.endDate ? ' ' : event.endDate,
       description: loading || !event.description ? ' ' : event.description,
@@ -58,13 +67,23 @@ const UpdateEvent = ({
             onChange={(e) => onChange(e)}
           ></input>
         </div>
-        <div className='form-control'>
+        <div className='form-group'>
           <input
             type='text'
             id='location'
             name='location'
             placeholder='location'
             value={location}
+            onChange={(e) => onChange(e)}
+          ></input>
+        </div>
+        <div className='form-group'>
+          <input
+            type='text'
+            id='category'
+            name='category'
+            placeholder='Category'
+            value={category}
             onChange={(e) => onChange(e)}
           ></input>
         </div>

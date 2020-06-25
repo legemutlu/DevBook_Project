@@ -17,6 +17,9 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+  },
   views: [
     {
       user: {

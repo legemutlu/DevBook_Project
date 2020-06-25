@@ -1,25 +1,39 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import EventItem from './EventItem';
 import { getEvents } from '../../actions/event';
-import moment from 'moment';
 
 const Events = ({ getEvents, event: { events } }) => {
   useEffect(() => {
     getEvents();
   }, [getEvents]);
+  var eventCategories = [];
 
-  const localizer = momentLocalizer(moment);
+  for (const event of events) {
+    eventCategories.push(event.category);
+  }
 
   return (
     <Fragment>
       <h1 className='large text-primary'>Events</h1>
       <p className='lead'> You can create or join event !</p>
-
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log('ege');
+        }}
+      >
+        <span className='category'>Choose a category:</span>{' '}
+        <select id='cars' name='cars'>
+          {eventCategories.map((category) => (
+            <option value={category}> {category}</option>
+          ))}
+        </select>{' '}
+        <input type='submit' className='btn btn-success' value='Filter' />
+      </form>
+      <br />
       <Link to='/create-event'>
         <button className='btn btn-primary'>Create Event</button>
       </Link>

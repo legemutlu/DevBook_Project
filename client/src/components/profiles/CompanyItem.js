@@ -10,7 +10,7 @@ const CompanyItem = ({
 }) => {
   return (
     <div className='profile bg-light'>
-      <img className='round-img my-1' src={avatar} alt='' />
+      <img src={avatar} alt='' className='round-img' />
       <div>
         <h2>{name}</h2>{' '}
         <p className='my-1'>{location && <span> at {location}</span>}</p>

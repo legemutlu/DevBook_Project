@@ -12,6 +12,7 @@ const EventItem = ({
     name,
     title,
     location,
+    category,
     description,
     startDate,
     endDate,
@@ -41,6 +42,7 @@ const EventItem = ({
         </div>
         <div>
           <p className='my-1'>{title}</p>
+          <p className='event-date'> Category : {category}</p>
           {!showActions && (
             <Fragment>
               <p className='my-1'>{description}</p>

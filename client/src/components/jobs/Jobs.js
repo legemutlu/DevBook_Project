@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import JobItem from './JobItem'; // ----> PostItem ---> create a job for show
+import JobItem from './JobItem';
 import { getJobs } from '../../actions/job';
 
 const Jobs = ({ getJobs, job: { jobs }, isCompany }) => {
