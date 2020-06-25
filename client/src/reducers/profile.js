@@ -40,16 +40,23 @@ export default function (state = initialState, action) {
         companyprofile: payload,
         loading: false,
       };
-    case GET_PROFILES:
-      return {
-        ...state,
-        profiles: payload,
-        loading: false,
-      };
+      case GET_PROFILES:
+
+        return {
+          ...state,
+          profiles: payload.profiles,
+          loading: false,
+          pageLength : payload.pageLength,
+          currentPage : (payload.currentPage + 1),
+  
+        };  
     case GET_COMPANY_PROFILES:
       return {
         ...state,
-        companyprofiles: payload,
+        companyprofiles: payload.companyprofiles,
+        pageLength : payload.pageLength,
+        currentPage : (payload.currentPage + 1),
+
         loading: false,
       };
 

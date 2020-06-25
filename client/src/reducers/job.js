@@ -25,7 +25,9 @@ export default function (state = initialState, action) {
     case GET_JOBS:
       return {
         ...state,
-        jobs: payload,
+        jobs: payload.jobs,
+        pageLength : payload.pageLength,
+        currentPage : (payload.currentPage + 1),
         loading: false,
       };
     case GET_JOB:

@@ -20,11 +20,13 @@ const ApplyForm = ({ addApply, jobId, job: { job } }) => {
           addApply(jobId, cv);
         }}
       >
+        Select Your CV:
         <div className='custom-file'>
           <input
             type='file'
             className='custom-file-input'
             id='cv'
+            required="true"
             onChange={onChange}
           />
           <label className='custom-file-label' htmFor='customFile'>

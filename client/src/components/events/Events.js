@@ -23,6 +23,9 @@ const Events = ({ getEvents, event: { events } }) => {
       <Link to='/create-event'>
         <button className='btn btn-primary'>Create Event</button>
       </Link>
+      <Link to='/calendar'>
+        <button className='btn btn-secondary'>View in Calendar</button>
+      </Link>
       <div className='events'>
         {events.map((event) => (
           <EventItem key={event._id} event={event} />

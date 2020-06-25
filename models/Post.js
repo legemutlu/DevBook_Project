@@ -50,6 +50,14 @@ const PostSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  readers : [
+    {
+      profiles: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Profile'
+      }
+    }
+  ],
 });
 
 module.exports = Post = mongoose.model("post", PostSchema);

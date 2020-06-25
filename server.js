@@ -10,6 +10,7 @@ const profile = require('./routes/api/profile');
 const posts = require('./routes/api/posts');
 const jobs = require('./routes/api/jobs');
 const event = require('./routes/api/event');
+const hashtags = require('./routes/api/hashtags');
 
 // Connect Database
 connectDb();
@@ -25,6 +26,7 @@ app.use('/api/auth', auth);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 app.use('/api/events', event);
+app.use('/api/hashtags', hashtags);
 app.use('/api/jobs', jobs, express.static('jobs'));
 
 const PORT = process.env.PORT || 5000;

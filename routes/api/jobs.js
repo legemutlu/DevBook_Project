@@ -43,9 +43,37 @@ router.get('/', async (req, res) => {
   }
 
   try {
-    const job = await Job.find();
 
-    res.json(job);
+    var search = req.query.search
+    let page = (Math.abs(req.query.page) || 1) - 1;
+    let limit = 10; 
+
+
+    if (search == undefined)
+    {
+      search = ""
+    }
+
+    console.log("search " + search)
+    console.log("page ne " + page)
+
+    var searchQuery = {}
+    if (search.length > 0) {
+      searchQuery = {$or : [{"name": new RegExp(search, "i")},{"description": new RegExp(search, "i")},{"website": new RegExp(search, "i")}]}
+    }
+
+    const jobsLength = await Job.find(searchQuery)
+    const length = jobsLength.length
+    const pageLength = length > 0 ? Math.ceil(length/limit) : 0
+
+    const allJobs = await Job.find(searchQuery)
+    .limit(limit).skip(limit * page);
+
+    veri = {"jobs" : allJobs, "pageLength":pageLength, "currentPage" : page}
+
+
+
+    res.json(veri);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

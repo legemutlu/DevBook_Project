@@ -7,7 +7,7 @@ import { addLike, removeLike, deletePost } from '../../actions/post';
 
 const PostItem = ({
   auth,
-  post: { _id, text, name, avatar, comments, date, user, likes },
+  post: { _id, text, name, avatar, comments, date, user, likes, readerLength },
   addLike,
   removeLike,
   deletePost,
@@ -26,6 +26,9 @@ const PostItem = ({
           <p className='my-1'>{text}</p>
           <p className='post-date'>
             {<Moment format='DD/MM/YYYY'>{date}</Moment>}
+          </p>
+          <p className='post-date'>
+            Readers : {readerLength}
           </p>
           {showActions && (
             <Fragment>

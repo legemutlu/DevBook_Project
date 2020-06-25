@@ -655,3 +655,27 @@ select > option {
 .fas {
   margin: 5px;
 }
+
+.react-paginate ul {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.react-paginate li {
+  display: inline-block;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+
+.react-paginate ul li a:hover, ul li a.active {
+  background-color: antiquewhite;
+ color: rgb(255, 255, 255);
+}
+
+.react-paginate .active
+{
+  background-color: antiquewhite;
+ color: rgb(255, 255, 255);
+} 

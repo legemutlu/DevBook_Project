@@ -11,10 +11,14 @@ import {
 
 const initialState = {
   posts: [],
+  allPostsLength : null,
+  currentPage : null,
+  sortMethod : null,
   post: null,
   loading: true,
   error: {},
 };
+
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -22,7 +26,10 @@ export default function (state = initialState, action) {
     case GET_POSTS:
       return {
         ...state,
-        posts: payload,
+        posts: payload.posts,
+        allPostsLength : payload.postLength,
+        currentPage : (payload.currentPage + 1),
+        sortMethod : payload.sortMethod,
         loading: false,
       };
     case GET_POST:
