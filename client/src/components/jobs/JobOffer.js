@@ -32,6 +32,7 @@ const JobOffer = ({ createJob, history }) => {
             placeholder='Website'
             value={website}
             onChange={(e) => onChange(e)}
+            required
           ></input>
         </div>
         <div className='form-group'>
@@ -42,6 +43,7 @@ const JobOffer = ({ createJob, history }) => {
             placeholder='Job Description'
             value={description}
             onChange={(e) => onChange(e)}
+            required
           ></textarea>
         </div>
         <input type='submit' className='btn btn-primary my-1' />

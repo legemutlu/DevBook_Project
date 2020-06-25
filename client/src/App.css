@@ -323,7 +323,8 @@ select > option {
 
 .navbar a {
   color: #fff;
-  padding: 0.45rem;
+  /* 0.45rem */
+  padding: 1.45rem;
   margin: 0 0.25rem;
 }
 

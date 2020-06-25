@@ -45,6 +45,7 @@ const UpdateJobOffer = ({
             placeholder='Website'
             value={website}
             onChange={(e) => onChange(e)}
+            required
           ></textarea>
         </div>
         <div className='form-group'>
@@ -55,6 +56,7 @@ const UpdateJobOffer = ({
             placeholder='Job Description'
             value={description}
             onChange={(e) => onChange(e)}
+            required
           ></textarea>
         </div>
         <input type='submit' className='btn btn-primary my-1' />
