@@ -5,5 +5,6 @@ import profile from './profile';
 import post from './post';
 import job from './job';
 import event from './event';
+import hashtag from './hashtag';
 
-export default combineReducers({ alert, auth, profile, post, job, event });
+export default combineReducers({ alert, auth, profile, post, job, event, hashtag  });

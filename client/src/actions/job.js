@@ -14,9 +14,9 @@ import {
 } from './types';
 
 // GET JOBS
-export const getJobs = () => async (dispatch) => {
+export const getJobs = (search, page) => async (dispatch) => {
   try {
-    const res = await axios.get('/api/jobs');
+    const res = await axios.get("/api/jobs?search="+search+"&page="+page);
 
     dispatch({
       type: GET_JOBS,
@@ -135,7 +135,7 @@ export const getJob = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: JOB_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: "test", status: err.response.status },
     });
   }
 };

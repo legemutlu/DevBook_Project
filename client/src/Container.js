@@ -28,6 +28,8 @@ import CreateEvent from './components/events/CreateEvent';
 import UpdateEvent from './components/events/UpdateEvent';
 import ReactCalendar from './components/events/ReactCalendar';
 import PrivateRoute from './components/routing/PrivateRoute';
+import Hashtags from './components/hashtags/Hashtags';
+
 
 export const Container = () => {
   return (
@@ -62,6 +64,8 @@ export const Container = () => {
         <PrivateRoute exact path='/add-education' component={AddEducation} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute exact path="/posts/hashtag/:hashtag" component={Posts} />
+        <PrivateRoute exact path="/hashtags" component={Hashtags} />
         <PrivateRoute exact path='/jobs' component={Jobs} />
         <PrivateRoute exact path='/jobs/:id' component={Job} />
         <PrivateRoute exact path='/create-job' component={JobOffer} />

@@ -21,7 +21,30 @@ const CreateEvent = ({ createEvent }) => {
   };
 
   const onSubmit = (e) => {
+
+    console.log("submit?")
     e.preventDefault();
+
+    const currentDate = Date.now()
+
+    var startDate = new Date(formData.startDate);
+    var endDate = new Date(formData.endDate);
+    const startDateEpoch = startDate.getTime();
+    const endDateEpoch = endDate.getTime();
+
+    console.log(startDateEpoch)
+    console.log(endDateEpoch)
+    console.log(currentDate)
+
+    if (currentDate > startDateEpoch) {
+      alert("You can't select a date in past.")
+    }
+
+    if (endDateEpoch <= startDateEpoch) 
+    {
+      alert("End date must be after than start date.")
+    }
+
     createEvent(formData);
   };
 

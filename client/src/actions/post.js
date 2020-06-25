@@ -12,9 +12,20 @@ import {
 } from "./types";
 
 // GET POSTS
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (hashtag, search, sort, page) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/posts");
+
+    var res
+
+    console.log("gelen search "+ search);
+
+    if (hashtag == undefined) {
+      console.log("hashtag yok.")
+      res = await axios.get('/api/posts?search='+search+"&sort="+sort+"&page="+page);
+    }
+    else {
+      res = await axios.get('/api/posts/hashtag/'+hashtag+"?search="+search+"&sort="+sort+"&page="+page);
+    }
 
     dispatch({
       type: GET_POSTS,
@@ -27,6 +38,7 @@ export const getPosts = () => async (dispatch) => {
     });
   }
 };
+
 
 // ADD LIKE
 export const addLike = (id) => async (dispatch) => {

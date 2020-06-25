@@ -28,7 +28,9 @@ const Education = ({ education, deleteEducation }) => {
       </td>
     </tr>
   ));
-  return (
+  if (education.length > 0)
+  {
+  return ( 
     <Fragment>
       <h2 className="my-2">Education Credentials</h2>
       <table className="table">
@@ -38,13 +40,17 @@ const Education = ({ education, deleteEducation }) => {
             <th className="hide-sm">Degree</th>
             <th className="hide-sm">Field of Study</th>
             <th className="hide-sm">Years</th>
-            <th />
+            <th className="hide-sm">Action</th>
           </tr>
         </thead>
         <tbody>{educations}</tbody>
       </table>
     </Fragment>
   );
+  }
+   else {
+     return <Fragment></Fragment>;
+   }
 };
 
 Education.propTypes = {

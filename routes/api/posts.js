@@ -5,13 +5,13 @@ const auth = require("../../middleware/auth");
 
 const Post = require("../../models/Post");
 const User = require("../../models/User");
+const Hashtag = require("../../models/hashtag");
 
 // @route    POST api/posts
 // @desc     Create a post
-
 router.post(
-  "/",
-  [auth, check("text", "Text is required").not().isEmpty()],
+  '/',
+  [auth, check('text', 'Text is required').not().isEmpty()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -19,35 +19,188 @@ router.post(
     }
 
     try {
-      const user = await User.findById(req.user.id).select("-password");
+      const user = await User.findById(req.user.id).select('-password');
+
+
+      var hashtagChannel = ""
+
+      var postContent = req.body.text
+
+      if (req.body.hashtag)
+      {
+        hashtagChannel = req.body.hashtag
+        postContent = postContent + " #" + hashtagChannel
+      }
+
+
+
+      console.log("on channel "  + postContent)
+
+      
 
       const newPost = new Post({
-        text: req.body.text,
+        text: postContent,
         name: user.name,
         avatar: user.avatar,
         user: req.user.id,
       });
+
+      const hashtags = extract(postContent, { unique: true, type: '#'});
+
+      for (const i in hashtags) {
+  
+          const hashtag = hashtags[i]
+  
+          if (hashtag.length > 24)
+              continue
+  
+          const findHashtag = await Hashtag.findOne({hashtag : hashtag})
+  
+          if (findHashtag)
+          {
+              await findHashtag.update({$inc: {'value': 1}})
+              await findHashtag.save()
+              continue
+          }
+  
+          const createHashtag = new Hashtag({hashtag})
+          createHashtag.save()
+      }
+        
 
       const post = await newPost.save();
 
       res.json(post);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server Error");
+      res.status(500).send('Server Error');
     }
   }
 );
 
 // @route    GET api/posts
 // @desc     Get posts
-
-router.get("/", auth, async (req, res) => {
+// @access   Private
+router.get('/', auth, async (req, res) => {
   try {
-    const post = await Post.find().sort({ date: -1 });
-    res.json(post);
+
+    var search = req.query.search
+
+    if (search == undefined)
+    {
+      search = ""
+    }
+
+    var sortMethod = { date: -1 }
+    var sort = req.query.sort
+
+    let page = (Math.abs(req.query.page) || 1) - 1;
+    let limit = 10; 
+
+
+    if (sort == 0) { // newest to old
+      sortMethod = { date: -1 }
+    } else if (sort == 1) {
+      sortMethod = { date: 1 }
+    }
+
+    const foundPosts = await Post.aggregate([
+      { "$match": { $and: [
+       { text: { '$regex': search, '$options': 'i' } }] } }, 
+       { "$sort": sortMethod },
+       { "$skip": limit * page}, { "$limit": limit} 
+    
+      ])
+
+    const posts = []
+
+    for (var post of foundPosts) {
+      const readers = (post.readers === undefined) ? 0 : post.readers.length;
+      delete post.readers
+      post["readerLength"] = readers
+      posts.push(post)
+    }
+
+    const postLengthsQuery = await Post.aggregate([{ "$match": { $and: [{ text: { '$regex': search, '$options': 'i' } }] } }])
+
+    var length = 0
+    
+    for (const p of postLengthsQuery) {
+      length += 1
+    }
+
+
+    const pageLength = length > 0 ? Math.ceil(length/limit) : 0
+
+    veri = {"posts" : posts, "postLength":pageLength, "currentPage" : page, "sortMethod" : sort}
+
+    res.json(veri);
+
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
+  }
+});
+
+
+// @route    GET api/posts:hashtag
+// @desc     Get posts with hashtag
+// @access   Private
+router.get('/hashtag/:hashtag', auth, async (req, res) => {
+  try {
+
+    const hashtag = req.params.hashtag
+
+    var search = req.query.search
+
+    if (search == undefined)
+    {
+      search = ""
+    }
+
+    var sortMethod = { date: -1 }
+    var sort = req.query.sort
+
+    let page = (Math.abs(req.query.page) || 1) - 1;
+    let limit = 10; 
+
+
+    if (sort == 0) { // newest to old
+      sortMethod = { date: -1 }
+    } else if (sort == 1) {
+      sortMethod = { date: 1 }
+    }
+	
+	  const foundPosts = await Post.aggregate([{ "$match": { $and: [{ text: { '$regex': "#" + hashtag, '$options': 'i' } }, { text: { '$regex': search, '$options': 'i' } }] } }, { "$sort": sortMethod }, { "$skip": limit * page}, { "$limit": limit} ])
+
+	
+
+    const posts = []
+
+    for (var post of foundPosts) {
+      const readers = (post.readers === undefined) ? 0 : post.readers.length;
+      delete post.readers
+      post["readerLength"] = readers
+      posts.push(post)
+    }
+
+    const postLengthsQuery = await Post.aggregate([{ "$match": { $and: [{ text: { '$regex': "#" + hashtag, '$options': 'i' } }, { text: { '$regex': search, '$options': 'i' } }] } }])
+
+    var length = 0
+    
+    for (const p of postLengthsQuery) {
+      length += 1
+    }
+
+
+    const pageLength = length > 0 ? Math.ceil(length/limit) : 0
+
+    veri = {"posts" : posts, "postLength":pageLength, "currentPage" : page, "sortMethod" : sort}
+
+    res.json(veri);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 });
 
@@ -60,7 +213,31 @@ router.get("/:id", auth, async (req, res) => {
     if (!post) {
       return res.status(404).json({ msg: "Post not found" });
     }
-    res.json(post);
+
+    const myProfile = await Profile.findOne({user : req.user.id})
+
+
+
+    const readerResult = post.readers.filter(reader => reader.profiles.toString() == myProfile._id.toString());
+    if (readerResult.length == 0) {
+        console.log("reader olarak kaydet :))))")
+        post.readers.unshift({ profiles: myProfile._id });
+        await post.save()
+    }
+
+
+    const readers = post.readers.length;
+
+    const postObject = post.toObject()
+
+
+    delete postObject.readers
+    postObject["readerLength"] = readers
+
+    console.log("giden post " + JSON.stringify(postObject))
+
+    
+    res.json(postObject);
   } catch (err) {
     console.error(err.message);
     if (err.kind === "ObjectId") {

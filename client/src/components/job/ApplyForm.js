@@ -20,6 +20,7 @@ const ApplyForm = ({ addApply, jobId, job: { job } }) => {
           addApply(jobId, cv);
         }}
       >
+        Select Your CV:
         <div className='custom-file'>
           <input
             type='file'

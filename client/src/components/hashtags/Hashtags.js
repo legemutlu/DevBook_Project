@@ -1,76 +1,58 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import JobItem from './JobItem'; // ----> PostItem ---> create a job for show
-import { getJobs } from '../../actions/job';
+import HashtagItem from './HashtagItem';
+import { getHashtags } from '../../actions/hashtag';
 import ReactPaginate from 'react-paginate';
 
-const Jobs = ({ getJobs, job: { jobs, pageLength, currentPage }, isCompany }) => {
+const Hashtags = ({ getHashtags, hashtag : {hashtags, pageLength, currentPage}}) => {
   useEffect(() => {
-    getJobs("",0);
-  }, [getJobs]);
+    getHashtags("", 0);
+  }, [getHashtags]);
 
   var [search, setText] = useState('');
 
-  console.log("pageLength" + pageLength)
-
-
-
-
+  
   const handlePageClick = data => {
     let selected = data.selected + 1;
-    console.log("b" + search)
-    console.log("d" + selected)
-
-
-    getJobs(search, selected);
+    getHashtags(search, selected);
 
   };
 
+
   return (
     <Fragment>
-      <h1 className='large text-primary'>Jobs</h1>
+      <h1 className="large text-primary">Hashtags</h1>
       <form
           className="form my-1"
           onSubmit={(e) => {
             e.preventDefault();
             console.log("submit search " + search);
-            getJobs(search, 1);
+            getHashtags(search, 1);
           }}
         >
           <input
             name="text"
-            placeholder="Search"
+            placeholder="Search in hashtags"
             value={search}
             onChange={(e) => setText(e.target.value)}
           ></input>
 
           <input type="submit" className="btn btn-primary" value="Submit" />
         </form>
-
-
-      <p className='lead'>
-        <i className='' /> Companies Job Offers
+      <p className="lead">
+        <i className="fas fa-hashtag" /> Find a topic for yourself.
       </p>
-
-      {isCompany && (
-        <Link to='/create-job'>
-          <button type='button' className='btn btn-success'>
-            Create a Job Offer
-          </button>
-        </Link>
-      )}
-      <div className='jobs'>
-        {jobs.map((job) => (
-          <JobItem key={job._id} job={job} />
+      <div className="posts">
+        {hashtags.map((hashtag) => (
+         <HashtagItem key={hashtag._id} hashtag={hashtag} />
         ))}
       </div>
-      <div className="react-paginate">
 
-<ReactPaginate
+      <div className="react-paginate">
+        <ReactPaginate
           initialPage={0}
-          forcePage={(currentPage === undefined ? 1 : currentPage)-1}
+          forcePage={currentPage-1}
           previousLabel={'previous'}
           nextLabel={'next'}
           breakLabel={'...'}
@@ -83,20 +65,18 @@ const Jobs = ({ getJobs, job: { jobs, pageLength, currentPage }, isCompany }) =>
           subContainerClassName={'pages pagination'}
           activeClassName={'active'}
         />
-</div>
+      </div> 
     </Fragment>
   );
 };
 
-Jobs.propTypes = {
-  getJobs: PropTypes.func.isRequired,
-  job: PropTypes.object.isRequired,
-  isCompany: PropTypes.bool,
+Hashtags.propTypes = {
+  getHashtags: PropTypes.func.isRequired,
+  hashtag: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  job: state.job,
-  isCompany: state.auth.isCompany,
+  hashtag: state.hashtag,
 });
 
-export default connect(mapStateToProps, { getJobs })(Jobs);
+export default connect(mapStateToProps, { getHashtags })(Hashtags);

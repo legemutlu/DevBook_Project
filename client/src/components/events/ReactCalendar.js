@@ -1,53 +1,51 @@
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getEvents } from '../../actions/event';
+import { useHistory } from 'react-router-dom';
 
 const localizer = momentLocalizer(moment);
 const myEventsList = [];
 
-const ReactCalendar = ({ event: { events }, getEvents, history }) => {
+const ReactCalendar = ({ event: { events }, getEvents }) => {
   useEffect(() => {
     getEvents();
   }, [getEvents]);
 
-  var allEvents = [];
+  const history = useHistory();
+
+
+
+  var allEvents = []
 
   for (const event of events) {
-    const startDate = new Date(event.startDate);
-    var endDate = new Date(event.endDate);
+    const startDate = new Date(event.startDate)
+    var endDate = new Date(event.endDate)
 
     const object = {
-      id: event._id,
-      title: event.title,
-      allDay: true,
-      start: new Date(
-        startDate.getFullYear(),
-        startDate.getMonth(),
-        startDate.getDate()
-      ),
-      end: new Date(
-        endDate.getFullYear(),
-        endDate.getMonth(),
-        endDate.getDate()
-      ),
-    };
-    allEvents.push(object);
-    console.log(object);
+      "id" : event._id, 
+      "title": event.title, 
+      "allDay" : true, 
+      "start": new Date(startDate.getFullYear(),startDate.getMonth(), startDate.getDate()),
+      "end": new Date(endDate.getFullYear(),endDate.getMonth(), endDate.getDate())
+    }
+    allEvents.push(object)
+    console.log(object)
   }
 
   const handleSlotSelection = (event) => {
-    console.log('secilen title ' + event.id);
-    history.push(`/events/${event.id}`);
-  };
+   console.log("secilen title " +event.id )
+   history.push("/events/"+event.id);
 
+   
+  };
+  
   return (
     <div>
       <Calendar
-        onSelectEvent={handleSlotSelection}
+      onSelectEvent = {handleSlotSelection}
         localizer={localizer}
         events={allEvents}
         startAccessor='start'

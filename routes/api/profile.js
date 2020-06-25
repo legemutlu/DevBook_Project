@@ -199,13 +199,77 @@ router.post(
 //@route    GET api/profile
 //@desc     Get all user profiles
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const profiles = await Profile.find().populate("user", ["name", "avatar"]);
-    res.json(profiles);
+
+    var search = req.query.search
+    let page = (Math.abs(req.query.page) || 1) - 1;
+    let limit = 10; 
+
+
+    if (search == undefined)
+    {
+      search = ""
+    }
+
+    console.log("search " + search)
+    console.log("page ne " + page)
+  
+    const profiles = []
+
+    const profilesLength = await Profile.find().populate('user', ['name', 'avatar'])
+    var length = profilesLength.length
+    const pageLength = length > 0 ? Math.ceil(length/limit) : 0
+
+
+    const allProfiles = await Profile.find().populate('user', ['name', 'avatar']).limit(limit).skip(limit * page)
+
+    for (const profile of allProfiles) {
+      const name = profile.user.name
+      const company = typeof(profile.company) == "undefined" ? "" : profile.company
+      const website = typeof(profile.website) == "undefined" ? "" : profile.website
+      const location = typeof(profile.location) == "undefined" ? "" : profile.location
+      const biography = typeof(profile.bio) == "undefined" ? "" : profile.bio
+
+
+      if (name.match(new RegExp(search, "i"))) {
+        console.log("Name match")
+        profiles.push(profile)
+      }
+      else if (company.match(new RegExp(search, "i"))) {
+        console.log("company match")
+
+        profiles.push(profile)
+      }
+      else if (website.match(new RegExp(search, "i"))) {
+        console.log("website match")
+        profiles.push(profile)
+      }
+      else if (location.match(new RegExp(search, "i"))) {
+        console.log("location match")
+        profiles.push(profile)
+      }
+      else if (biography.match(new RegExp(search, "i"))) {
+        console.log("biography match")
+        profiles.push(profile)
+      }
+    }
+
+
+
+      veri = {"profiles" : profiles, "pageLength":pageLength, "currentPage" : page}
+
+
+      res.json(veri);
+
+
+
+
+    //const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+    //res.json(profiles);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send('Server Error');
   }
 });
 
@@ -214,11 +278,69 @@ router.get("/", async (req, res) => {
 
 router.get("/all-company", async (req, res) => {
   try {
+    var search = req.query.search
+    let page = (Math.abs(req.query.page) || 1) - 1;
+    let limit = 10; 
+
+
+    if (search == undefined)
+    {
+      search = ""
+    }
+
+    console.log("search " + search)
+    console.log("page ne " + page)
+  
+    const companyProfiles = []
+
+
+    const profilesLength = await CompanyProfile.find().populate('user', ['name', 'location'])
+
+    var length = profilesLength.length
+    const pageLength = length > 0 ? Math.ceil(length/limit) : 0
+
+
+    const allProfiles = await CompanyProfile.find().populate('user', ['name', 'location']).limit(limit).skip(limit * page)
+
+    for (const companyProfile of allProfiles) {
+      const name = companyProfile.user.name
+      const location = companyProfile.location
+      const website = companyProfile.website
+      const bio = companyProfile.bio
+
+
+      if (name.match(new RegExp(search, "i"))) {
+        console.log("Name match")
+        companyProfiles.push(companyProfile)
+      }
+      
+      else if (location.match(new RegExp(search, "i"))) {
+        console.log("location match")
+        companyProfiles.push(companyProfile)
+      }
+      else if (website.match(new RegExp(search, "i"))) {
+        console.log("website match")
+        companyProfiles.push(companyProfile)
+      }
+      else if (bio.match(new RegExp(search, "i"))) {
+        console.log("bio match")
+        companyProfiles.push(companyProfile)
+      }
+    }
+
+
+
+      veri = {"companyprofiles" : companyProfiles, "pageLength":pageLength, "currentPage" : page}
+
+
+      res.json(veri); 
+    /*
     const profilesCompany = await CompanyProfile.find().populate("user", [
       "name",
       "location",
     ]);
     res.json(profilesCompany);
+    */
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
