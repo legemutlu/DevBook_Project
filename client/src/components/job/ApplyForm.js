@@ -26,7 +26,7 @@ const ApplyForm = ({ addApply, jobId, job: { job } }) => {
             type='file'
             className='custom-file-input'
             id='cv'
-            required='true'
+            required="true"
             onChange={onChange}
           />
           <label className='custom-file-label' htmFor='customFile'>

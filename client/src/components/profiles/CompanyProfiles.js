@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Spinner from "../layout/Spinner";
-import CompanyItem from "./CompanyItem";
-import { getCompanyProfiles } from "../../actions/profile";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import CompanyItem from './CompanyItem';
+import { getCompanyProfiles } from '../../actions/profile';
 import ReactPaginate from 'react-paginate';
 
 const CompanyProfiles = ({
@@ -11,26 +11,20 @@ const CompanyProfiles = ({
   companyprofile: { companyprofiles, loading, pageLength, currentPage },
 }) => {
   useEffect(() => {
-    getCompanyProfiles("",0);
+    getCompanyProfiles('', 0);
   }, [getCompanyProfiles]);
 
   var [search, setText] = useState('');
 
-  console.log("pageLength" + pageLength)
+  console.log('pageLength' + pageLength);
 
-
-
-
-  const handlePageClick = data => {
+  const handlePageClick = (data) => {
     let selected = data.selected + 1;
-    console.log("b" + search)
-    console.log("d" + selected)
-
+    console.log('b' + search);
+    console.log('d' + selected);
 
     getCompanyProfiles(search, selected);
-
   };
-
 
   return (
     <Fragment>
@@ -38,32 +32,32 @@ const CompanyProfiles = ({
         <Spinner></Spinner>
       ) : (
         <Fragment>
-          <h1 className="larger text-primary">Companies</h1>
+          <h1 className='larger text-primary'>Companies</h1>
 
           <form
-          className="form my-1"
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log("submit search " + search);
-            getCompanyProfiles(search, 1);
-          }}
-        >
-          <input
-            name="text"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => setText(e.target.value)}
-          ></input>
+            className='form my-1'
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log('submit search ' + search);
+              getCompanyProfiles(search, 1);
+            }}
+          >
+            <input
+              className='search-text'
+              name='text'
+              placeholder='Search'
+              value={search}
+              onChange={(e) => setText(e.target.value)}
+            ></input>
+            {'  '}
+            <input type='submit' className='btn btn-primary' value='Submit' />
+          </form>
 
-          <input type="submit" className="btn btn-primary" value="Submit" />
-        </form>
-
-
-          <p className="lead">
-            <i className="fab fa-connectdevelop"></i>Browse and connect with
+          <p className='lead'>
+            <i className='fab fa-connectdevelop'></i>Browse and connect with
             companies
           </p>
-          <div className="companyprofiles">
+          <div className='companyprofiles'>
             {companyprofiles.length > 0 ? (
               companyprofiles.map((companyprofile) => (
                 <CompanyItem
@@ -74,27 +68,24 @@ const CompanyProfiles = ({
             ) : (
               <h4>No Profiles Found...</h4>
             )}
-                  <div className="react-paginate">
-
-<ReactPaginate
-          initialPage={0}
-          forcePage={(currentPage === undefined ? 1 : currentPage)-1}
-          previousLabel={'previous'}
-          nextLabel={'next'}
-          breakLabel={'...'}
-          breakClassName={'break-me'}
-          pageCount={ (pageLength === undefined ? 1 : pageLength)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageClick}
-          containerClassName={'pagination'}
-          subContainerClassName={'pages pagination'}
-          activeClassName={'active'}
-        />
-</div>
-
+            <div className='react-paginate'>
+              <ReactPaginate
+                initialPage={0}
+                forcePage={(currentPage === undefined ? 1 : currentPage) - 1}
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={pageLength === undefined ? 1 : pageLength}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination'}
+                subContainerClassName={'pages pagination'}
+                activeClassName={'active'}
+              />
+            </div>
           </div>
-          
         </Fragment>
       )}
     </Fragment>

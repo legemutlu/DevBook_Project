@@ -61,7 +61,6 @@ const CreateEvent = ({ createEvent }) => {
               placeholder='title'
               value={title}
               onChange={(e) => onChange(e)}
-              required
             ></input>
           </div>
           <div className='form-control'>
@@ -72,7 +71,6 @@ const CreateEvent = ({ createEvent }) => {
               placeholder='location'
               value={location}
               onChange={(e) => onChange(e)}
-              required
             ></input>
           </div>
           <div className='form-group'>
@@ -103,7 +101,6 @@ const CreateEvent = ({ createEvent }) => {
               placeholder='Description'
               value={description}
               onChange={(e) => onChange(e)}
-              required
             ></textarea>
           </div>
           <input type='submit' className='btn btn-primary my-1' />

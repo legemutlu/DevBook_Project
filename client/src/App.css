@@ -250,7 +250,7 @@ img {
 .form input[type='password'],
 .form input[type='date'],
 .form input[type='datetime-local'],
-.form select,
+.form select[name='status'],
 .form textarea {
   display: block;
   width: 100%;
@@ -260,10 +260,30 @@ img {
   cursor: pointer;
 }
 
+.search-text {
+  display: inline-flex;
+  width: 20%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.form-select-category {
+  display: inline-flex;
+  width: 20%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  float: right;
+}
+
 .form input[type='submit'],
 button {
   font: inherit;
   cursor: pointer;
+  margin-top: 5px;
 }
 
 .form .social-input {
@@ -323,8 +343,7 @@ select > option {
 
 .navbar a {
   color: #fff;
-  /* 0.45rem */
-  padding: 1.45rem;
+  padding: 0.45rem;
   margin: 0 0.25rem;
 }
 
@@ -464,13 +483,21 @@ select > option {
   background: var(--primary-color);
   padding: 0.5rem;
 }
-
+.posts {
+  display: block;
+}
 .post {
+  display: flex;
+  width: 70%;
+  float: right;
+}
+
+/* .post{
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 40fr 4fr;
   grid-gap: 2rem;
   align-items: center;
-}
+} */
 
 .post > div:first-child {
   text-align: center;
@@ -489,6 +516,47 @@ select > option {
 }
 
 .post .post-date {
+  color: #aaa;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Hashtags Page */
+
+.hashtags {
+  width: 20%;
+  height: 100%;
+  display: inline-block;
+}
+.hashtag-form .hashtag-form-header {
+  background: var(--primary-color);
+  padding: 0.5rem;
+}
+
+.hashtag {
+  display: grid;
+  grid-template-columns: 40fr 4fr;
+  grid-gap: 2rem;
+  align-items: center;
+}
+
+.hashtag > div:first-child {
+  text-align: center;
+}
+
+.hashtag img {
+  width: 100px;
+}
+
+.hashtag .comment-count {
+  background: var(--light-color);
+  color: var(--primary-color);
+  padding: 0.1rem 0.2rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+.hashtag .hashtag-date {
   color: #aaa;
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
@@ -657,26 +725,35 @@ select > option {
   margin: 5px;
 }
 
-.react-paginate ul {
-  display: inline-block;
-  padding-left: 15px;
-  padding-right: 15px;
+.footer {
+  position: relative;
+  bottom: 0;
+  display: block;
+}
+
+.react-paginate {
+  text-align: center;
+  display: block;
 }
 
 .react-paginate li {
   display: inline-block;
-  padding-left: 15px;
-  padding-right: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 30px;
+  margin: 5px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.react-paginate li a {
+  color: white;
+  padding: 5px;
 }
 
-
-.react-paginate ul li a:hover, ul li a.active {
-  background-color: antiquewhite;
- color: rgb(255, 255, 255);
+.react-paginate ul li a:hover,
+ul li a.active {
+  color: rgba(0, 0, 0, 0.7);
 }
 
-.react-paginate .active
-{
-  background-color: antiquewhite;
- color: rgb(255, 255, 255);
-} 
+.react-paginate .active {
+  background-color: var(--primary-color);
+}
