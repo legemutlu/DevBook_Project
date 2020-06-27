@@ -8,10 +8,12 @@ import {
   UPDATE_EVENT,
   ADD_PARTICIPANT,
   REMOVE_PARTICIPANT,
+  GET_EVENTS_BY_CATEGORY,
 } from '../actions/types';
 
 const initialState = {
   events: [],
+  getEventsByCategory: [],
   event: null,
   loading: true,
   error: {},
@@ -24,6 +26,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         events: payload,
+        loading: false,
+      };
+    case GET_EVENTS_BY_CATEGORY:
+      return {
+        ...state,
+        getEventsByCategory: payload,
         loading: false,
       };
     case GET_EVENT:

@@ -20,7 +20,7 @@ const Event = ({ auth, getEvent, event: { event, loading }, match }) => {
       <Link to='/events' className='btn'>
         Back To Events
       </Link>
-      <EventItem event={event} showActions={false} />
+      <EventItem event={event} showActions={false}></EventItem>
       {!auth.loading &&
         !event.participants.find(
           (participant) => participant.user === auth.user._id

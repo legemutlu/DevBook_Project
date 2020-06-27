@@ -4,17 +4,26 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createEvent } from '../../actions/event';
+import { setAlert } from '../../actions/alert';
 
-const CreateEvent = ({ createEvent }) => {
+const CreateEvent = ({ createEvent, setAlert }) => {
   const [formData, setFormData] = useState({
     title: '',
     location: '',
     startDate: '',
     endDate: '',
     description: ' ',
+    category: '',
   });
 
-  const { title, location, startDate, endDate, description } = formData;
+  const {
+    title,
+    location,
+    category,
+    startDate,
+    endDate,
+    description,
+  } = formData;
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,30 +31,35 @@ const CreateEvent = ({ createEvent }) => {
 
   const onSubmit = (e) => {
 
+    console.log('submit?');
+    e.preventDefault();
+
+    const currentDate = Date.now();
+
+
     console.log("submit?")
     e.preventDefault();
 
     const currentDate = Date.now()
+
 
     var startDate = new Date(formData.startDate);
     var endDate = new Date(formData.endDate);
     const startDateEpoch = startDate.getTime();
     const endDateEpoch = endDate.getTime();
 
-    console.log(startDateEpoch)
-    console.log(endDateEpoch)
-    console.log(currentDate)
+    console.log(startDateEpoch);
+    console.log(endDateEpoch);
+    console.log(currentDate);
 
     if (currentDate > startDateEpoch) {
-      alert("You can't select a date in past.")
+      setAlert('You can not select a start date is older than now', 'danger');
+    } else if (endDateEpoch <= startDateEpoch) {
+      setAlert('End date must be after start date.', 'danger');
+    } else {
+      createEvent(formData);
     }
 
-    if (endDateEpoch <= startDateEpoch) 
-    {
-      alert("End date must be after than start date.")
-    }
-
-    createEvent(formData);
   };
 
   return (
@@ -58,18 +72,28 @@ const CreateEvent = ({ createEvent }) => {
               type='text'
               id='title'
               name='title'
-              placeholder='title'
+              placeholder='Title'
               value={title}
               onChange={(e) => onChange(e)}
             ></input>
           </div>
-          <div className='form-control'>
+          <div className='form-group'>
             <input
               type='text'
               id='location'
               name='location'
-              placeholder='location'
+              placeholder='Location'
               value={location}
+              onChange={(e) => onChange(e)}
+            ></input>
+          </div>
+          <div className='form-group'>
+            <input
+              type='text'
+              id='category'
+              name='category'
+              placeholder='Category'
+              value={category}
               onChange={(e) => onChange(e)}
             ></input>
           </div>
@@ -78,7 +102,7 @@ const CreateEvent = ({ createEvent }) => {
               type='datetime-local'
               name='startDate'
               id='startDate'
-              placeholder='startDate'
+              placeholder='Start Date'
               value={startDate}
               onChange={(e) => onChange(e)}
             ></input>
@@ -88,7 +112,7 @@ const CreateEvent = ({ createEvent }) => {
               type='datetime-local'
               name='endDate'
               id='endDate'
-              placeholder='endDate'
+              placeholder='End Date'
               value={endDate}
               onChange={(e) => onChange(e)}
             ></input>
@@ -115,6 +139,7 @@ const CreateEvent = ({ createEvent }) => {
 
 CreateEvent.propTypes = {
   createEvent: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { createEvent })(CreateEvent);
+export default connect(null, { createEvent, setAlert })(CreateEvent);

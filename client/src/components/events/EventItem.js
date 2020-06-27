@@ -12,6 +12,7 @@ const EventItem = ({
     name,
     title,
     location,
+    category,
     description,
     startDate,
     endDate,
@@ -19,7 +20,6 @@ const EventItem = ({
     views,
     participants,
   },
-  updateEvent,
   deleteEvent,
   addEventView,
   showActions,
@@ -35,7 +35,6 @@ const EventItem = ({
         <div>
           {auth.isCompany ? (
             <Link to={`/profile/company/${user}`}>
-              <img className='round-img my-1' src={user.avatar} alt='' />
               <h4>{name}</h4>
             </Link>
           ) : (
@@ -60,6 +59,7 @@ const EventItem = ({
               </p>
             </Fragment>
           )}
+          <p className='event-date'> Category : {category}</p>
           <p className='event-date'>
             Event Views: {views.length >= 0 && <span>{views.length}</span>}
           </p>
@@ -111,7 +111,6 @@ EventItem.defaultProps = {
 EventItem.propTypes = {
   event: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  updateEvent: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   addEventView: PropTypes.func.isRequired,
 };
@@ -119,7 +118,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 export default connect(mapStateToProps, {
-  updateEvent,
   deleteEvent,
   addEventView,
 })(EventItem);

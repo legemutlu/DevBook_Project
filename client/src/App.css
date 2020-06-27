@@ -250,6 +250,7 @@ img {
 .form input[type='password'],
 .form input[type='date'],
 .form input[type='datetime-local'],
+.form select[name='profile'],
 .form select[name='status'],
 .form textarea {
   display: block;
@@ -260,13 +261,22 @@ img {
   cursor: pointer;
 }
 
+
+.event-select {
+  display: initial;
+  width: 30%;
+
 .search-text {
   display: inline-flex;
   width: 20%;
+
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;
   cursor: pointer;
+
+  margin-right: 5px;
+
 }
 
 .form-select-category {
@@ -277,6 +287,7 @@ img {
   border: 1px solid #ccc;
   cursor: pointer;
   float: right;
+
 }
 
 .form input[type='submit'],
