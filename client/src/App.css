@@ -250,7 +250,7 @@ img {
 .form input[type='password'],
 .form input[type='date'],
 .form input[type='datetime-local'],
-.form select,
+.form select[name='profile'],
 .form textarea {
   display: block;
   width: 100%;
@@ -258,6 +258,16 @@ img {
   font-size: 1.2rem;
   border: 1px solid #ccc;
   cursor: pointer;
+}
+
+.event-select {
+  display: initial;
+  width: 30%;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 .form input[type='submit'],

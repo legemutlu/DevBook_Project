@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createEvent } from '../../actions/event';
+import { setAlert } from '../../actions/alert';
 
-const CreateEvent = ({ createEvent }) => {
+const CreateEvent = ({ createEvent, setAlert }) => {
   const [formData, setFormData] = useState({
     title: '',
     location: '',
@@ -29,8 +30,27 @@ const CreateEvent = ({ createEvent }) => {
   };
 
   const onSubmit = (e) => {
+    console.log('submit?');
     e.preventDefault();
-    createEvent(formData);
+
+    const currentDate = Date.now();
+
+    var startDate = new Date(formData.startDate);
+    var endDate = new Date(formData.endDate);
+    const startDateEpoch = startDate.getTime();
+    const endDateEpoch = endDate.getTime();
+
+    console.log(startDateEpoch);
+    console.log(endDateEpoch);
+    console.log(currentDate);
+
+    if (currentDate > startDateEpoch) {
+      setAlert('You can not select a start date is older than now', 'danger');
+    } else if (endDateEpoch <= startDateEpoch) {
+      setAlert('End date must be after start date.', 'danger');
+    } else {
+      createEvent(formData);
+    }
   };
 
   return (
@@ -113,6 +133,7 @@ const CreateEvent = ({ createEvent }) => {
 
 CreateEvent.propTypes = {
   createEvent: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { createEvent })(CreateEvent);
+export default connect(null, { createEvent, setAlert })(CreateEvent);

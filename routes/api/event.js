@@ -228,4 +228,22 @@ router.delete('/:id/participant/:participant_id', [auth], async (req, res) => {
   }
 });
 
+// @route    GET api/events/category/:category
+// @desc     Get a events by category
+
+router.get('/category/:category', [auth], async (req, res) => {
+  try {
+    console.log('gelen category ' + req.params.category);
+    let event = await Event.find({ category: req.params.category });
+    if (!event) {
+      return res.status(404).json({ msg: 'Event not found' });
+    }
+    console.log('gidenler bunlar ' + event);
+    res.json(event);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

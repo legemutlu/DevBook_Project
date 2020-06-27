@@ -11,6 +11,7 @@ import {
   ADD_PARTICIPANT,
   GET_PARTICIPANTS,
   REMOVE_PARTICIPANT,
+  GET_EVENTS_BY_CATEGORY,
 } from './types';
 
 // GET EVENTS
@@ -187,6 +188,23 @@ export const deleteParticipant = (eventId, participantId) => async (
     });
 
     dispatch(setAlert('Participation Removed', 'danger'));
+  } catch (err) {
+    dispatch({
+      type: EVENT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// GET EVENT BY CATEGORY
+export const getEventByCategory = (category) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/events/category/${category}`);
+
+    dispatch({
+      type: GET_EVENTS_BY_CATEGORY,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: EVENT_ERROR,
