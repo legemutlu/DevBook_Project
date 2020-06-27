@@ -30,10 +30,18 @@ const CreateEvent = ({ createEvent, setAlert }) => {
   };
 
   const onSubmit = (e) => {
+
     console.log('submit?');
     e.preventDefault();
 
     const currentDate = Date.now();
+
+
+    console.log("submit?")
+    e.preventDefault();
+
+    const currentDate = Date.now()
+
 
     var startDate = new Date(formData.startDate);
     var endDate = new Date(formData.endDate);
@@ -51,6 +59,7 @@ const CreateEvent = ({ createEvent, setAlert }) => {
     } else {
       createEvent(formData);
     }
+
   };
 
   return (
@@ -66,7 +75,6 @@ const CreateEvent = ({ createEvent, setAlert }) => {
               placeholder='Title'
               value={title}
               onChange={(e) => onChange(e)}
-              required
             ></input>
           </div>
           <div className='form-group'>
@@ -77,7 +85,6 @@ const CreateEvent = ({ createEvent, setAlert }) => {
               placeholder='Location'
               value={location}
               onChange={(e) => onChange(e)}
-              required
             ></input>
           </div>
           <div className='form-group'>
@@ -118,7 +125,6 @@ const CreateEvent = ({ createEvent, setAlert }) => {
               placeholder='Description'
               value={description}
               onChange={(e) => onChange(e)}
-              required
             ></textarea>
           </div>
           <input type='submit' className='btn btn-primary my-1' />

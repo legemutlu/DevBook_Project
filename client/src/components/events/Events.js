@@ -71,6 +71,9 @@ const Events = ({
         </div>
       </form>
       <br />
+      <Link to='/calendar'>
+        <button className='btn btn-secondary'>View in Calendar</button>
+      </Link>
 
       <div className='events'>
         {getEventsByCategory === undefined ||

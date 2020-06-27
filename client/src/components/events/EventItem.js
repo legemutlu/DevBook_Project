@@ -24,6 +24,11 @@ const EventItem = ({
   addEventView,
   showActions,
 }) => {
+  console.log("gelen date " + endDate)
+  var eventDate = new Date(endDate)
+  console.log("sonra " + eventDate.getFullYear())
+  console.log("sonra " + eventDate.getMonth())
+  console.log("sonra " + eventDate.getDay())
   return (
     <div>
       <div className='event bg-white p-1 my-1'>

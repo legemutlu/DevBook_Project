@@ -50,11 +50,12 @@ export const getCurrentCompanyProfile = () => async (dispatch) => {
   }
 };
 
-// Get All User Profiles
-export const getProfiles = () => async (dispatch) => {
+// Get All Profiles
+export const getProfiles = (search, page) => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await axios.get("/api/profile");
+    console.log("istek at " + "/api/profile?search="+search+"&page="+page)
+    const res = await axios.get("/api/profile?search="+search+"&page="+page);
 
     dispatch({
       type: GET_PROFILES,
@@ -68,10 +69,10 @@ export const getProfiles = () => async (dispatch) => {
   }
 };
 // Get All Company Profiles
-export const getCompanyProfiles = () => async (dispatch) => {
+export const getCompanyProfiles = (search, page) => async (dispatch) => {
   dispatch({ type: CLEAR_COMPANY_PROFILE });
   try {
-    const res = await axios.get("/api/profile/all-company");
+    const res = await axios.get("/api/profile/all-company?search="+search+"&page="+page);
 
     dispatch({
       type: GET_COMPANY_PROFILES,

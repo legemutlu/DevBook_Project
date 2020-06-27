@@ -29,7 +29,7 @@ const Login = ({ login, isCompany, isAuthenticated }) => {
   if (isAuthenticated && isCompany) {
     return <Redirect to="/dashboard-company" />;
   }
-  if (isAuthenticated && isCompany === false) {
+  if (isAuthenticated && (isCompany === undefined || isCompany === false)) {
     return <Redirect to="/dashboard" />;
   }
 
