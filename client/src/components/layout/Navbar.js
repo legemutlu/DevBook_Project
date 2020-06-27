@@ -38,18 +38,6 @@ const Navbar = ({ auth: { isAuthenticated, isCompany, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to='/hashtags'>
-          {''}
-          <span className='hide-sm'>Hashtags</span>
-        </Link>
-      </li>
-      <li>
-        <Link to='/hashtags'>
-          {''}
-          <span className='hide-sm'>Hashtags</span>
-        </Link>
-      </li>
-      <li>
         <Link to='/calendar'>
           {''}
           <span className='hide-sm'>Calendar</span>
@@ -112,12 +100,6 @@ const Navbar = ({ auth: { isAuthenticated, isCompany, loading }, logout }) => {
         <Link to='/posts'>
           {''}
           <span className='hide-sm'>Posts</span>
-        </Link>
-      </li>
-      <li>
-        <Link to='/hashtags'>
-          {''}
-          <span className='hide-sm'>Hashtags</span>
         </Link>
       </li>
       <li>

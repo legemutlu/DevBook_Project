@@ -7,7 +7,7 @@ import { addLike, removeLike, deletePost } from '../../actions/post';
 
 const PostItem = ({
   auth,
-  post: { _id, text, name, avatar, comments, date, user, likes, read },
+  post: { _id, text, name, avatar, comments, date, user, likes, readerLength },
   addLike,
   removeLike,
   deletePost,
@@ -15,7 +15,7 @@ const PostItem = ({
 }) => {
   return (
     <div>
-      <div className='post bg-white p-1 my-1'>
+      <div className='post bg-white p-1 my'>
         <div>
           <Link to={`/profile/${user}`}>
             <img className='round-img' src={avatar} alt='' />
@@ -27,9 +27,7 @@ const PostItem = ({
           <p className='post-date'>
             {<Moment format='DD/MM/YYYY'>{date}</Moment>}
           </p>
-          <p className='post-date'>
-            Readers : {read}
-          </p>
+          <p className='post-date'>Readers : {readerLength}</p>
           {showActions && (
             <Fragment>
               <button

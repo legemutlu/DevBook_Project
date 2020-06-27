@@ -44,7 +44,7 @@ const Hashtags = ({
         {'  '}
         <input type='submit' className='btn btn-primary' value='Submit' />
       </form>
-      <div className='hashtags'>
+      <div className='hashtag-page'>
         {hashtags.map((hashtag) => (
           <HashtagItem key={hashtag._id} hashtag={hashtag} />
         ))}
