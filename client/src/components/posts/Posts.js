@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 import { getPosts } from '../../actions/post';
@@ -108,17 +109,31 @@ const Posts = ({
         <br />
       </form>
       <div className='posts'>
+        {console.log('burada')}
         {posts.map((post) => (
           <PostItem key={post._id} post={post} />
         ))}
       </div>
       <div className='hashtags'>
+        <Link to='/posts'>
+          <div className='hashtag p-1 my'>
+            <button className='btn btn-primary'>Back To Posts</button>
+          </div>
+        </Link>
+        <br />
+        <span className='t-hashtags'>Trend Hashtags</span>
         {hashtags
           .slice(0, hashtags.length > 5 ? 5 : hashtags.length)
           .map((hashtag) => (
             <HashtagItem key={hashtag._id} hashtag={hashtag} />
           ))}
+        <div className='hashtag p-1 my'>
+          <Link to='/hashtags'>
+            <button className='btn btn-primary'>All Hashtags</button>
+          </Link>
+        </div>
       </div>
+
       <footer className='footer'>
         <div className='react-paginate'>
           <ReactPaginate

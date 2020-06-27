@@ -1,56 +1,50 @@
-
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
- 
-const Hashtag = require("../../models/hashtag");
 
+const Hashtag = require('../../models/hashtag');
 
-router.get("/", auth, async (req,res) => {
+router.get('/', auth, async (req, res) => {
+  let limit = 8;
+  let page = (Math.abs(req.query.page) || 1) - 1;
 
-    let limit = 15; 
-    let page = (Math.abs(req.query.page) || 1) - 1;
+  var search = req.query.search;
+  if (search == undefined) {
+    search = '';
+  }
 
-    var search = req.query.search
-    if (search == undefined)
-    {
-      search = ""
-    } 
+  var searchQuery = {};
+  if (search.length > 0) searchQuery = { hashtag: new RegExp(search, 'i') };
 
-    var searchQuery = {}
-    if (search.length > 0)
-     searchQuery = {"hashtag": new RegExp(search, "i")}
+  const hashtagsLength = await Hashtag.find(searchQuery);
+  const length = hashtagsLength.length;
+  const pageLength = length > 0 ? Math.ceil(length / limit) : 0;
 
-    const hashtagsLength = await Hashtag.find(searchQuery)
-    const length = hashtagsLength.length
-    const pageLength = length > 0 ? Math.ceil(length/limit) : 0
+  const allHashtags = await Hashtag.find(searchQuery)
+    .sort({ value: -1 })
+    .limit(limit)
+    .skip(limit * page);
 
-    const allHashtags = await Hashtag.find(searchQuery).sort({value : -1}).limit(limit).skip(limit * page)
+  veri = { hashtags: allHashtags, pageLength: pageLength, currentPage: page };
 
-    veri = {"hashtags" : allHashtags, "pageLength":pageLength, "currentPage" : page}
+  console.log(veri);
 
-    console.log(veri)
+  res.json(veri);
+});
 
+router.get('/:hashtag', auth, async (req, res) => {
+  const hashtag = req.params.hashtag;
 
-    res.json(veri);
-})
+  let limit = 8;
+  let page = (Math.abs(req.query.page) || 1) - 1;
 
+  const allHashtags = await Hashtag.find({ hashtag: new RegExp(hashtag, 'i') })
+    .sort({ value: -1 })
+    .limit(limit)
+    .skip(limit * page);
 
-router.get("/:hashtag", auth, async (req,res) => {
-
-    const hashtag = req.params.hashtag
-
-
-
-    let limit = 15; 
-    let page = (Math.abs(req.query.page) || 1) - 1;
-
-    const allHashtags = await Hashtag.find({"hashtag": new RegExp(hashtag, "i")}).sort({value : -1}).limit(limit).skip(limit * page)
-
-
-    res.send(allHashtags)
-})
-
+  res.send(allHashtags);
+});
 
 module.exports = router;

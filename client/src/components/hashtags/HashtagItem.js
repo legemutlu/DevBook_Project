@@ -6,17 +6,15 @@ import { connect } from 'react-redux';
 const HashtagItem = ({ auth, hashtag }) => {
   console.log('gelen hashtag ' + hashtag.hashtag);
   return (
-    <div>
-      <div className='hashtag  p-1 my-1'>
-        <Link
-          to={`/posts/hashtag/${hashtag.hashtag.substring(1)}`}
-          class='btn btn-primary'
-        >
-          <h4>
-            {hashtag.hashtag} ({hashtag.value})
-          </h4>
-        </Link>
-      </div>
+    <div className='hashtag p-1 my'>
+      <Link
+        to={`/posts/hashtag/${hashtag.hashtag.substring(1)}`}
+        className='btn btn-primary'
+      >
+        <h4>
+          {hashtag.hashtag} ({hashtag.value})
+        </h4>
+      </Link>
     </div>
   );
 };
