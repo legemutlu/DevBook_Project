@@ -90,6 +90,11 @@ router.get('/', auth, async (req, res) => {
       sortMethod = { date: -1 };
     } else if (sort == 1) {
       sortMethod = { date: 1 };
+    }  else if (sort == 2) {
+      // newest to old
+      sortMethod = { read: -1 };
+    } else if (sort == 3) {
+      sortMethod = { read: 1 };
     }
 
     const foundPosts = await Post.aggregate([
@@ -102,10 +107,9 @@ router.get('/', auth, async (req, res) => {
     const posts = [];
 
     for (var post of foundPosts) {
-      const readers = post.readers === undefined ? 0 : post.readers.length;
-      delete post.readers;
-      post['readerLength'] = readers;
+      post.read = (post.read === undefined) ? 0 : post.read
       posts.push(post);
+
     }
 
     const postLengthsQuery = await Post.aggregate([
@@ -158,6 +162,11 @@ router.get('/hashtag/:hashtag', auth, async (req, res) => {
       sortMethod = { date: -1 };
     } else if (sort == 1) {
       sortMethod = { date: 1 };
+    } else if (sort == 2) {
+      // newest to old
+      sortMethod = { read: -1 };
+    } else if (sort == 3) {
+      sortMethod = { read: 1 };
     }
 
     const foundPosts = await Post.aggregate([
@@ -177,9 +186,7 @@ router.get('/hashtag/:hashtag', auth, async (req, res) => {
     const posts = [];
 
     for (var post of foundPosts) {
-      const readers = post.readers === undefined ? 0 : post.readers.length;
-      delete post.readers;
-      post['readerLength'] = readers;
+      post.read = (post.read === undefined) ? 0 : post.read
       posts.push(post);
     }
 
@@ -226,27 +233,11 @@ router.get('/:id', auth, async (req, res) => {
       return res.status(404).json({ msg: 'Post not found' });
     }
 
-    const myProfile = await Profile.findOne({ user: req.user.id });
+    post.read = ((post.read === undefined) ? 0 : post.read)+1
 
-    const readerResult = post.readers.filter(
-      (reader) => reader.profiles.toString() == myProfile._id.toString()
-    );
-    if (readerResult.length == 0) {
-      console.log('reader olarak kaydet :))))');
-      post.readers.unshift({ profiles: myProfile._id });
-      await post.save();
-    }
+    post.save()
 
-    const readers = post.readers.length;
-
-    const postObject = post.toObject();
-
-    delete postObject.readers;
-    postObject['readerLength'] = readers;
-
-    console.log('giden post ' + JSON.stringify(postObject));
-
-    res.json(postObject);
+    res.json(post);
   } catch (err) {
     console.error(err.message);
     if (err.kind === 'ObjectId') {

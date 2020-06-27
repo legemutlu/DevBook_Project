@@ -31,17 +31,9 @@ const CreateEvent = ({ createEvent, setAlert }) => {
 
   const onSubmit = (e) => {
 
-    console.log('submit?');
     e.preventDefault();
 
     const currentDate = Date.now();
-
-
-    console.log("submit?")
-    e.preventDefault();
-
-    const currentDate = Date.now()
-
 
     var startDate = new Date(formData.startDate);
     var endDate = new Date(formData.endDate);
