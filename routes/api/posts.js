@@ -7,6 +7,8 @@ const Post = require('../../models/Post');
 const User = require('../../models/User');
 const Hashtag = require('../../models/hashtag');
 
+const extract = require("mention-hashtag")
+
 // @route    POST api/posts
 // @desc     Create a post
 router.post(
