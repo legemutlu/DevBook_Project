@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://lege:lege123@devbook-xrkuu.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "03d46665e279048b0415",
+  "githubSecret": "17268dbd2041a04284b2a7a74a94fd72de4e5371"
+}
