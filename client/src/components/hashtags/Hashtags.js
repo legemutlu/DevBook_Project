@@ -30,7 +30,6 @@ const Hashtags = ({
         className='form my-1'
         onSubmit={(e) => {
           e.preventDefault();
-          console.log('submit search ' + search);
           getHashtags(search, 1);
         }}
       >

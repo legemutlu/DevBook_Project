@@ -38,8 +38,6 @@ const Posts = ({
     sortValue = 'readerAscend';
   }
 
-  console.log('currentPage ' + currentPage);
-
   var title =
     match.params.hashtag === undefined
       ? 'Posts'
@@ -66,10 +64,6 @@ const Posts = ({
 
   const handlePageClick = (data) => {
     let selected = data.selected + 1;
-    console.log('a' + match.params.hashtag);
-    console.log('b' + search);
-    console.log('c' + sort);
-    console.log('d' + selected);
 
     getPosts(match.params.hashtag, search, sort, selected);
   };
@@ -82,7 +76,7 @@ const Posts = ({
         className='form my-1'
         onSubmit={(e) => {
           e.preventDefault();
-          console.log('submit search ' + search);
+
           getPosts(match.params.hashtag, search, sort, 1);
         }}
       >
@@ -109,7 +103,6 @@ const Posts = ({
         <br />
       </form>
       <div className='posts'>
-        {console.log('burada')}
         {posts.map((post) => (
           <PostItem key={post._id} post={post} />
         ))}

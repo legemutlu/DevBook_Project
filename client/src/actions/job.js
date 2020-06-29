@@ -16,7 +16,7 @@ import {
 // GET JOBS
 export const getJobs = (search, page) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/jobs?search="+search+"&page="+page);
+    const res = await axios.get('/api/jobs?search=' + search + '&page=' + page);
 
     dispatch({
       type: GET_JOBS,
@@ -98,8 +98,7 @@ export const updateJob = (id, formData, history) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
   };
-  console.log('test');
-  console.log(formData);
+
   const baseURL = 'http://localhost:3000/';
 
   try {
@@ -135,7 +134,7 @@ export const getJob = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: JOB_ERROR,
-      payload: { msg: "test", status: err.response.status },
+      payload: { msg: 'test', status: err.response.status },
     });
   }
 };

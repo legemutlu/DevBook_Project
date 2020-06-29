@@ -210,9 +210,6 @@ router.get('/', async (req, res) => {
       search = '';
     }
 
-    console.log('search ' + search);
-    console.log('page ne ' + page);
-
     const profiles = [];
 
     const profilesLength = await Profile.find().populate('user', [
@@ -238,20 +235,14 @@ router.get('/', async (req, res) => {
       const biography = typeof profile.bio == 'undefined' ? '' : profile.bio;
 
       if (name.match(new RegExp(search, 'i'))) {
-        console.log('Name match');
         profiles.push(profile);
       } else if (company.match(new RegExp(search, 'i'))) {
-        console.log('company match');
-
         profiles.push(profile);
       } else if (website.match(new RegExp(search, 'i'))) {
-        console.log('website match');
         profiles.push(profile);
       } else if (location.match(new RegExp(search, 'i'))) {
-        console.log('location match');
         profiles.push(profile);
       } else if (biography.match(new RegExp(search, 'i'))) {
-        console.log('biography match');
         profiles.push(profile);
       }
     }
@@ -281,9 +272,6 @@ router.get('/all-company', async (req, res) => {
       search = '';
     }
 
-    console.log('search ' + search);
-    console.log('page ne ' + page);
-
     const companyProfiles = [];
 
     const profilesLength = await CompanyProfile.find().populate('user', [
@@ -306,16 +294,12 @@ router.get('/all-company', async (req, res) => {
       const bio = companyProfile.bio;
 
       if (name.match(new RegExp(search, 'i'))) {
-        console.log('Name match');
         companyProfiles.push(companyProfile);
       } else if (location.match(new RegExp(search, 'i'))) {
-        console.log('location match');
         companyProfiles.push(companyProfile);
       } else if (website.match(new RegExp(search, 'i'))) {
-        console.log('website match');
         companyProfiles.push(companyProfile);
       } else if (bio.match(new RegExp(search, 'i'))) {
-        console.log('bio match');
         companyProfiles.push(companyProfile);
       }
     }

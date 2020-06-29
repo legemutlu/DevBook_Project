@@ -16,36 +16,38 @@ const ReactCalendar = ({ event: { events }, getEvents }) => {
 
   const history = useHistory();
 
-
-
-  var allEvents = []
+  var allEvents = [];
 
   for (const event of events) {
-    const startDate = new Date(event.startDate)
-    var endDate = new Date(event.endDate)
+    const startDate = new Date(event.startDate);
+    var endDate = new Date(event.endDate);
 
     const object = {
-      "id" : event._id, 
-      "title": event.title, 
-      "allDay" : true, 
-      "start": new Date(startDate.getFullYear(),startDate.getMonth(), startDate.getDate()),
-      "end": new Date(endDate.getFullYear(),endDate.getMonth(), endDate.getDate())
-    }
-    allEvents.push(object)
-    console.log(object)
+      id: event._id,
+      title: event.title,
+      allDay: true,
+      start: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate()
+      ),
+      end: new Date(
+        endDate.getFullYear(),
+        endDate.getMonth(),
+        endDate.getDate()
+      ),
+    };
+    allEvents.push(object);
   }
 
   const handleSlotSelection = (event) => {
-   console.log("secilen title " +event.id )
-   history.push("/events/"+event.id);
-
-   
+    history.push('/events/' + event.id);
   };
-  
+
   return (
     <div>
       <Calendar
-      onSelectEvent = {handleSlotSelection}
+        onSelectEvent={handleSlotSelection}
         localizer={localizer}
         events={allEvents}
         startAccessor='start'

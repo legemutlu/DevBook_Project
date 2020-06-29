@@ -55,9 +55,7 @@ const CreateCompanyProfile = ({ createCompanyProfile, history }) => {
             value={name}
             onChange={(e) => onChange(e)}
           />
-          <small className='form-text'>
-            Could be your own company or one you work for
-          </small>
+          <small className='form-text'>Company Name</small>
         </div>
         <div className='form-group'>
           <input

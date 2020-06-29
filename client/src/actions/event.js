@@ -81,8 +81,7 @@ export const updateEvent = (id, formData, history) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
   };
-  console.log('test');
-  console.log(formData);
+
   const baseURL = 'http://localhost:3000/';
   try {
     const res = await axios.post(

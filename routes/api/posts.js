@@ -31,8 +31,6 @@ router.post(
         postContent = postContent + ' #' + hashtagChannel;
       }
 
-      console.log('on channel ' + postContent);
-
       const newPost = new Post({
         text: postContent,
         name: user.name,
@@ -383,6 +381,20 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     post.comments.splice(removeIndex, 1);
     await post.save();
     res.json(post.comments);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
+
+// @route    DELETE api/posts
+// @desc     DELETE all posts
+
+router.delete('/', auth, async (req, res) => {
+  try {
+    const post = await Post.deleteMany();
+
+    res.json(post);
   } catch (err) {
     console.error(err);
     res.status(500).json({ msg: 'Server Error' });

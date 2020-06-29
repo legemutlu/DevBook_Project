@@ -14,11 +14,7 @@ const Events = ({
     getEvents();
   }, [getEvents]);
 
-  console.log('getEventsByCategory :' + getEventsByCategory);
-  console.log('events :' + events);
   var getEventsByCategoryIDs = getEventsByCategory.map((item) => item._id);
-
-  console.log('getEventsByCategoryIDs :' + getEventsByCategoryIDs);
 
   var [category] = useState('');
 
@@ -45,7 +41,6 @@ const Events = ({
         className='form my-1'
         onSubmit={(e) => {
           e.preventDefault();
-          console.log('submit category value ' + category);
           if (category === 'all' || category === '') {
             getEvents();
           } else {

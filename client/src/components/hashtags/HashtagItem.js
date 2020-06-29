@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const HashtagItem = ({ auth, hashtag }) => {
-  console.log('gelen hashtag ' + hashtag.hashtag);
   return (
     <div className='hashtag p-1 my'>
       <Link

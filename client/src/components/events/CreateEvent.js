@@ -30,7 +30,6 @@ const CreateEvent = ({ createEvent, setAlert }) => {
   };
 
   const onSubmit = (e) => {
-
     e.preventDefault();
 
     const currentDate = Date.now();
@@ -40,10 +39,6 @@ const CreateEvent = ({ createEvent, setAlert }) => {
     const startDateEpoch = startDate.getTime();
     const endDateEpoch = endDate.getTime();
 
-    console.log(startDateEpoch);
-    console.log(endDateEpoch);
-    console.log(currentDate);
-
     if (currentDate > startDateEpoch) {
       setAlert('You can not select a start date is older than now', 'danger');
     } else if (endDateEpoch <= startDateEpoch) {
@@ -51,7 +46,6 @@ const CreateEvent = ({ createEvent, setAlert }) => {
     } else {
       createEvent(formData);
     }
-
   };
 
   return (

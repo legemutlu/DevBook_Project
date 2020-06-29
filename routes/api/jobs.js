@@ -51,9 +51,6 @@ router.get('/', async (req, res) => {
       search = '';
     }
 
-    console.log('search ' + search);
-    console.log('page ne ' + page);
-
     var searchQuery = {};
     if (search.length > 0) {
       searchQuery = {
@@ -227,8 +224,6 @@ router.post(
 
       const f = req.file;
 
-      console.log('bu' + req.filename);
-
       const newApply = {
         name: user.name,
         avatar: user.avatar,
@@ -259,8 +254,6 @@ router.delete('/:id/apply/:apply_id', auth, async (req, res) => {
       var filename = jobApply.cv.filename;
       var applyID = jobApply.id;
     }
-    console.log(filename);
-    console.log(applyID);
 
     if (filename) {
       // First Delelte Existed File Before Update

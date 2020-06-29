@@ -1,16 +1,13 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import {
-  GET_HASHTAGS,
-  HASHTAG_ERROR,
-} from './types';
+import { GET_HASHTAGS, HASHTAG_ERROR } from './types';
 
 // GET HASHTAGS
 export const getHashtags = (search, page) => async (dispatch) => {
   try {
-    const res = await axios.get("/api/hashtags?search="+search+"&page="+page);
-
-    console.log("res data " +res.data)
+    const res = await axios.get(
+      '/api/hashtags?search=' + search + '&page=' + page
+    );
 
     dispatch({
       type: GET_HASHTAGS,

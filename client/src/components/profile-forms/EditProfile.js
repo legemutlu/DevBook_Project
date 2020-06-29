@@ -104,7 +104,7 @@ const EditProfile = ({
             onChange={(e) => onChange(e)}
           />
           <small className='form-text'>
-            Could be your own company or one you work for
+            Could be your own company or one you work for or school
           </small>
         </div>
         <div className='form-group'>

@@ -16,12 +16,8 @@ const Profiles = ({
 
   var [search, setText] = useState('');
 
-  console.log('pageLength' + pageLength);
-
   const handlePageClick = (data) => {
     let selected = data.selected + 1;
-    console.log('b' + search);
-    console.log('d' + selected);
 
     getProfiles(search, selected);
   };
@@ -38,7 +34,7 @@ const Profiles = ({
             className='form my-1'
             onSubmit={(e) => {
               e.preventDefault();
-              console.log('submit search ' + search);
+
               getProfiles(search, 1);
             }}
           >

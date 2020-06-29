@@ -6,8 +6,6 @@ import { addPost } from '../../actions/post';
 const PostForm = ({ addPost, hashtag }) => {
   const [text, setText] = useState('');
 
-  console.log('PostForm ' + hashtag);
-
   var title =
     hashtag === undefined || hashtag.length === 0 ? '' : 'on #' + hashtag;
 

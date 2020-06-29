@@ -77,4 +77,18 @@ router.post(
   }
 );
 
+// @route    DELETE api/users
+// @desc     DELETE all users
+
+router.delete('/', async (req, res) => {
+  try {
+    const users = await User.deleteMany();
+
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
+
 module.exports = router;
