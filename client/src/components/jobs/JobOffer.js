@@ -17,7 +17,7 @@ const JobOffer = ({ createJob, history }) => {
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Add Job Offer</h1>
+      <h1 className='large text-primary'>Create Job Offer</h1>
       <form
         className='form'
         onSubmit={(e) => {

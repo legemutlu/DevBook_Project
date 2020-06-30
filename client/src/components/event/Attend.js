@@ -14,7 +14,7 @@ const Attend = ({ auth, addParticipant, eventId, event: { event } }) => {
           addParticipant(eventId);
         }}
       >
-        Attend on Event
+        Attend To Event
       </button>
     </Fragment>
   ) : (

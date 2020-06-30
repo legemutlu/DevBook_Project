@@ -1,6 +1,6 @@
 # DevBook
 
-DevBook is social platform for developers and companies.
+DevBook is a social platform and job opportunity finding platform for developers and companies.
 
 ## Installation
 
