@@ -89,7 +89,7 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id,
     });
 
-    dispatch(setAlert('Post Removed', 'success'));
+    dispatch(setAlert('Post Removed', 'danger'));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
